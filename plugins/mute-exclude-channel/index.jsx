@@ -41,7 +41,8 @@ function removeChannel(guildId, channelId) {
 }
 
 export function onLoad() {
-  store.exemptedChannels ??= {};
+  store.exemptedChannels = {};
+  //store.exemptedChannels ??= {};
   const data = { ...store.exemptedChannels };
   setChannels(data);
   for (const ids of Object.values(data))
