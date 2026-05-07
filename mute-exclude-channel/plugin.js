@@ -67,7 +67,7 @@ function removeChannel(guildId, channelId) {
 	updateChannels(data);
 }
 function onLoad() {
-	store.exemptedChannels = {};
+	store.exemptedChannels ??= {};
 	const data = { ...store.exemptedChannels };
 	setChannels(data);
 	for (const ids of Object.values(data)) ids.forEach((id) => exemptedSet.add(id));
