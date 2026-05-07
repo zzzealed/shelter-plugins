@@ -24,5 +24,6 @@ Exclude individual channels from the global 'Mute Server'.
 ## TODO
 ### Mute Exclude Channel
 - [ ] Make "Unmute" button in channel context menu
-- [ ] Ensure channels are saved
+- [x] Ensure channels are saved \
+(hopefully works now)
 - [ ] Allow adding Channels by ID
