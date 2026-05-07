@@ -52,8 +52,8 @@ const { plugin: { store }, solid: { createSignal } } = shelter;
 const { TextBox, Button, ButtonSizes, Divider, Header, HeaderTags, Text, TextTags } = shelter.ui;
 const { GuildStore, ChannelStore, UserGuildSettingsStore } = shelter.flux.storesFlat;
 function updateChannels(data) {
-	setChannels(data);
-	store.exemptedChannels = JSON.stringify(data);
+	setChannels({ ...data });
+	store.exemptedChannels = { ...data };
 	exemptedSet.clear();
 	for (const ids of Object.values(data)) ids.forEach((id) => exemptedSet.add(id));
 }
@@ -67,8 +67,10 @@ function removeChannel(guildId, channelId) {
 	updateChannels(data);
 }
 function onLoad() {
-	store.exemptedChannels ??= "{}";
-	const data = JSON.parse(store.exemptedChannels);
+	console.log("raw store value:", store.exemptedChannels);
+	store.exemptedChannels ??= {};
+	console.log("after init:", store.exemptedChannels);
+	const data = { ...store.exemptedChannels };
 	setChannels(data);
 	for (const ids of Object.values(data)) ids.forEach((id) => exemptedSet.add(id));
 	unpatch = shelter.patcher.after(
