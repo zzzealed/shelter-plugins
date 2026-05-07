@@ -19,9 +19,9 @@ const { GuildStore, ChannelStore, UserGuildSettingsStore } =
   shelter.flux.storesFlat;
 
 function updateChannels(data) {
-  setChannels(data);
+  setChannels({ ...data });
   // Store persistently
-  store.exemptedChannels = JSON.stringify(data);
+  store.exemptedChannels = { ...data };
   exemptedSet.clear();
   for (const ids of Object.values(data))
     ids.forEach((id) => exemptedSet.add(id));
@@ -41,8 +41,10 @@ function removeChannel(guildId, channelId) {
 }
 
 export function onLoad() {
-  store.exemptedChannels ??= "{}";
-  const data = JSON.parse(store.exemptedChannels);
+  console.log("raw store value:", store.exemptedChannels);
+  store.exemptedChannels ??= {};
+  console.log("after init:", store.exemptedChannels);
+  const data = { ...store.exemptedChannels };
   setChannels(data);
   for (const ids of Object.values(data))
     ids.forEach((id) => exemptedSet.add(id));
